@@ -1,6 +1,8 @@
 ﻿using HarmonyLib;
+using Il2Cpp;
 using MelonLoader;
 using MelonLoader.Preferences;
+using MelonLoader.Utils;
 using System;
 using System.IO;
 using System.Reflection;
@@ -25,7 +27,7 @@ namespace HunterRetreat
 
             LoggerInstance.Msg("Loading configuration ...");
             modCategory = MelonPreferences.CreateCategory("HunterRetreat");
-            modCategory.SetFilePath(Path.Combine(MelonUtils.UserDataDirectory, "HunterRetreat.cfg"));
+            modCategory.SetFilePath(Path.Combine(MelonEnvironment.UserDataDirectory, "HunterRetreat.cfg"));
             healthLimit = modCategory.CreateEntry("HealthRetreatLimit", 30, "Health Limit Percentage", "Percentage of health above which a hunter will not retreat.", validator: new ValueRange<int>(0, 100));
             healthLimit.OnEntryValueChanged.Subscribe((_,_) => UpdateCachedHealthLimit());
             UpdateCachedHealthLimit();
